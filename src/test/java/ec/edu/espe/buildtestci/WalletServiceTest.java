@@ -69,17 +69,17 @@ public class WalletServiceTest {
         //Arrange
         String walletId = "no-exist-wallet";
 
-        when(walletRepository.existsByOwnerEmail(walletId)).thenReturn(Optional.empty().isEmpty());
+        when(walletRepository.findById(walletId)).thenReturn(Optional.empty());
 
         //Act + Assert
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> walletService
-                .deposit(walletId, 60.0));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> walletService.deposit(walletId, 60.0));
 
         assertEquals("Wallet not found", exception.getMessage());
         verify(walletRepository).findById(walletId);
         verify(walletRepository, never()).save(any());
-
     }
+
 
     @Test
     void deposit_shouldUpdateBalance_andSave_usingCaptor(){
