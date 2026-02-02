@@ -11,6 +11,8 @@ jobs:
   build-test:
     runs-on: ubuntu-latest
     steps:
+      - run: echo "runner OK"
+
       - name: Copiar el repositorio
         uses: actions/checkout@v4
 
