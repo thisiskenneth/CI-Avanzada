@@ -2,26 +2,28 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Copiar el repositorio
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Configurar Java
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
 
-      - name: Ejecutar pruebas
-        run: ./gradlew test
+      - name: Fix gradlew permissions + line endings
+        run: |
+          chmod +x gradlew
+          sed -i 's/\r$//' gradlew
 
-      - name: Construir
-        run: ./gradlew build
+      - name: Build (includes tests)
+        run: ./gradlew build --no-daemon --stacktrace --info
