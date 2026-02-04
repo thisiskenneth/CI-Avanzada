@@ -30,7 +30,7 @@ public class Wallet {
         this.balance = balance;
     }
 
-    //Depositar dinero en la cuenta
+    //Depositar dinero en la cuentilla
     public void deposit(double amount){
         this.balance+= amount;
     }
