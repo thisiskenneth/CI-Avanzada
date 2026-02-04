@@ -120,4 +120,21 @@ public class WalletServiceTest {
         verify(walletRepository, never()).save(any());
     }
 
+    @Test
+    void withdraw_success_shouldUpdateBalance_andSave() {
+        //Arrange
+        Wallet wallet = new Wallet("kacortez@espe.edu.ec", 300);
+        String walletId = wallet.getId();
+
+        when(walletRepository.findById(walletId)).thenReturn(Optional.of(wallet));
+        when(walletRepository.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
+        //Act
+        double newBalance = walletService.withdraw(walletId, 100);
+
+        //Assert
+        assertEquals(200.0, newBalance);
+        verify(walletRepository).save(any(Wallet.class));
+    }
+
 }
