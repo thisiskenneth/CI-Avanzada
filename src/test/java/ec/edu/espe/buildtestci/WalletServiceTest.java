@@ -132,6 +132,7 @@ public class WalletServiceTest {
         //Act
         double newBalance = walletService.withdraw(walletId, 100);
 
+        //
         //Assert
         assertEquals(200.0, newBalance);
         verify(walletRepository).save(any(Wallet.class));
