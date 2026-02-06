@@ -1,6 +1,6 @@
 package ec.edu.espe.buildtestci.dto;
 
-public class WalletResponse {
+public class    WalletResponse {
     private final String walletId;
     private final double balance;
 
